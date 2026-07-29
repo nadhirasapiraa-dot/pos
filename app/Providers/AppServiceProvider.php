@@ -15,11 +15,14 @@ use App\Policies\PenjualanPolicy;
 use App\Policies\ProdukPolicy;
 
 
+
+
 class AppServiceProvider extends ServiceProvider
 {
     protected $policies = [
         User::class => DashboardPolicy::class,
-        Produk::class => ProdukPolicy::class
+        Produk::class => ProdukPolicy::class,
+        Penjualan::class => PenjualanPolicy::class
     ];
     /**
      * Register any application services.

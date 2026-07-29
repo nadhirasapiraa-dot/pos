@@ -6,6 +6,19 @@
 
 @include('layouts.navbar')
 
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show my-3" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if(session('errors'))
+<div class="alert alert-danger" > 
+  {{ session('errors') }}
+</div>
+@endif
+
 <h1>Halaman Penjualan</h1>
 <a href="{{ route('penjualan.create')}}"  method="GET" class="btn btn-primary btm-sm">Create</a>
 <form action="{{ route('penjualan.index') }} " method="GET" class="mb-3">
@@ -42,23 +55,27 @@
       <th scope="row">{{$sales->firstItem() + $loop->index}}</th>
       <td>{{$sale->created_at->translatedFormat('d-m-Y H:i:s')}} </td>
       <td>{{$sale->user->name}}</td>
-      <td>Rp.{{$sale->total_pembayaran}}</td>
+      <td>Rp.{{number_format($sale->total_pembayaran)}}</td>
       <td>{{$sale->metode_pembayaran}}</td>
       <td>.{{$sale->status}}</td>
       <td class="d-flex gap-1">
-    <a href="" class="btn btn-primary btn-sm">
+<a href="{{ route('penjualan.show', $sale->id) }}" class="btn btn-primary btn-sm">
     Detail
 </a>
+@can('view' , $sale)
 ||
-    <a href="" class="btn btn-warning">Edit</a>
+    <a href="{{ route('penjualan.edit' , $sale) }}" class="btn btn-warning">Edit</a>
       ||
-    <form action="" method="POST" class="d-inline">
+@endcan
+@can('view' , $sale)
+    <form action="{{ route('penjualan.destroy' , $sale) }}" method="POST" class="d-inline">
         @csrf
         @method('DELETE')
         <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus penjualan ini?')">
             Hapus
         </button>
 </form>
+@endcan
 </td>
 </tr>
 @empty

@@ -38,13 +38,6 @@
                     <div class="col-7">
                         <button class="btn btn-outline-primary w-100 text-start p-2 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">
                             <div class="d-flex align-items-center gap-2">
-                                {{-- Gambar produk --}}
-                                <img src="{{ asset('storage/'. $product->foto) }}"
-                                     alt="Gambar"
-                                     class="rounded-circle"
-                                     style="width:45px; height:45px; object-fit:cover;">
-
-                                {{-- Nama & harga --}}
                                 <div>
                                     <div class="fw-semibold">{{ $product->nama}}</div>
                                     <small class="text-muted">{{ number_format($product->harga_jual) }}</small>
@@ -86,27 +79,20 @@
                 </thead>
 <tbody> 
     @forelse($sale->ItemPenjualan as $item) 
-    <tr> 
-        {{-- 1. Kolom Nama Produk --}}
+    <tr>
         <td>{{ $item->produk->nama }}</td> 
         
-        {{-- 2. Kolom Harga --}}
         <td>Rp {{ number_format($item->produk->harga_jual) }}</td> 
-        
-        {{-- 3. Kolom Qty (Sudah Diperbaiki) --}}
         <td>
             <form method="POST" action="{{ route('itempenjualan.update', $item->id) }}"> 
                 @csrf 
-                @method('PUT') 
-                {{-- Ditambahkan onchange agar ketika angka diganti, langsung otomatis tersimpan --}}
+                @method('PUT')
                 <input type="number" name="quantity" value="{{ $item->kuantitas }}" min="1" class="form-control form-control-sm" onchange="this.form.submit()"> 
             </form> 
         </td> 
-        
-        {{-- 4. Kolom Subtotal --}}
+
         <td>Rp {{ number_format($item->subtotal) }}</td> 
-        
-        {{-- 5. Kolom Aksi Hapus --}}
+
         <td> 
             <form method="POST" action="{{ route('itempenjualan.destroy', $item->id) }}"> 
                 @csrf 
@@ -117,7 +103,6 @@
     </tr> 
     @empty 
     <tr> 
-        {{-- Colspan diubah jadi 5 karena jumlah kolom di atas ada 5 --}}
         <td colspan="5" class="text-center text-muted py-3">Keranjang masih kosong</td> 
     </tr> 
     @endforelse 
@@ -129,23 +114,29 @@
             <div class="card-footer">
                 <strong>Rp {{ number_format($sale->total_pembayaran) }}</strong>
 
-                <form method="POST" action="" class="mt-2">
+                <form method="POST" 
+                action="{{ route('penjualan.update' , $sale->id) }}" 
+                onsubmit="return confirm('Yakin ingin di checkout?')"
+                class="mt-2">
                     @csrf
+                    @METHOD('PUT')
                     <select name="payment_method" class="form-select mb-2">
                         <option value="">Pilih Pembayaran</option>
                         <option value="CASH">Cash</option>
                         <option value="QRIS">QRIS</option>
                     </select>
 
-                    <button class="btn btn-success w-100">
+                    <button class="btn btn-success w-100 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">
                         Checkout
                     </button>
                 </form>
 
-                <form method="POST" action="" class="mt-2">
+                <form method="POST" action="{{ route('penjualan.destroy' , $sale->id) }}"
+                 class="mt-2"
+                 onsubmit="return confirm('Yakin ingin membatalkan transaksi?')">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-outline-danger w-100">
+                    <button class="btn btn-outline-danger w-100 mt-2 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}" >
                         Batal Transaksi
                     </button>
                 </form>

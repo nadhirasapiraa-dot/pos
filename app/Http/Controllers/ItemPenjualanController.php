@@ -163,8 +163,7 @@ $sales = Penjualan::orderBy('created_at', 'desc')->paginate(10);
      */
    public function destroy(ItemPenjualan $itempenjualan)
 {
-    $this->authorize('delete', $itempenjualan);
-    
+
     DB::transaction(function () use ($itempenjualan) {
 
         $produk = $itempenjualan->produk;
