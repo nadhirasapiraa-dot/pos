@@ -94,11 +94,13 @@
         <td>Rp {{ number_format($item->subtotal) }}</td> 
 
         <td> 
+            @can('delete' , $item)
             <form method="POST" action="{{ route('itempenjualan.destroy', $item->id) }}"> 
                 @csrf 
                 @method('DELETE') 
                 <button type="submit" class="btn btn-danger btn-sm">Hapus</button> 
             </form> 
+            @endcan
         </td> 
     </tr> 
     @empty 
@@ -130,7 +132,7 @@
                         Checkout
                     </button>
                 </form>
-
+                @can('delete' , $sale)
                 <form method="POST" action="{{ route('penjualan.destroy' , $sale->id) }}"
                  class="mt-2"
                  onsubmit="return confirm('Yakin ingin membatalkan transaksi?')">
@@ -140,6 +142,7 @@
                         Batal Transaksi
                     </button>
                 </form>
+                @endcan
             </div>
         </div>
     </div>

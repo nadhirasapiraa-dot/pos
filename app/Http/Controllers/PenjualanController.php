@@ -85,7 +85,6 @@ class PenjualanController extends Controller
      */
     public function show(Penjualan $penjualan)
     {
-        // Load relasi itemPenjualan beserta produknya dan user (kasir)
         $penjualan->load(['itemPenjualan.produk', 'user']);
 
         return view('penjualan.show', compact('penjualan'));

@@ -16,13 +16,13 @@ use App\Policies\ProdukPolicy;
 
 
 
-
 class AppServiceProvider extends ServiceProvider
 {
     protected $policies = [
         User::class => DashboardPolicy::class,
         Produk::class => ProdukPolicy::class,
-        Penjualan::class => PenjualanPolicy::class
+        Penjualan::class => PenjualanPolicy::class,
+       ItemPenjualan::class => ItemPenjualanPolicy::class
     ];
     /**
      * Register any application services.
@@ -37,8 +37,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Paginator::useBootstrap();
+        Paginator::useBootstrapFive();
         Carbon::setLocale('id');
         $this->registerPolicies();
     }
+
 }

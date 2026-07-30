@@ -57,21 +57,19 @@
       <td>{{$sale->user->name}}</td>
       <td>Rp.{{number_format($sale->total_pembayaran)}}</td>
       <td>{{$sale->metode_pembayaran}}</td>
-      <td>.{{$sale->status}}</td>
-      <td class="d-flex gap-1">
+      <td>{{$sale->status}}</td>
+      <td class="d-flex gap-1 align-items-center">
 <a href="{{ route('penjualan.show', $sale->id) }}" class="btn btn-primary btn-sm">
     Detail
 </a>
 @can('view' , $sale)
-||
-    <a href="{{ route('penjualan.edit' , $sale) }}" class="btn btn-warning">Edit</a>
-      ||
+    <a href="{{ route('penjualan.edit' , $sale) }}" class="btn btn-warning btn-sm">Edit</a>
 @endcan
-@can('view' , $sale)
-    <form action="{{ route('penjualan.destroy' , $sale) }}" method="POST" class="d-inline">
+@can('delete' , $sale)
+    <form action="{{ route('penjualan.destroy' , $sale) }}" method="POST" class="d-inline align-items-center m-0">
         @csrf
         @method('DELETE')
-        <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus penjualan ini?')">
+        <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus penjualan ini?')">
             Hapus
         </button>
 </form>
