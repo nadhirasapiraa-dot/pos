@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemPenjualanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProdukController;
 
 
@@ -38,8 +39,8 @@ Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function
 Route::middleware('role:admin,kasir')->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/penjualan', PenjualanController::class);
-
     Route::resource('/itempenjualan', ItemPenjualanController::class); 
+    Route::resource('/kategori', KategoriController::class);
 });
 
     });

@@ -32,7 +32,22 @@
     </div>
 </div>
 
-<div>
+<div class="mt-2">
+    <label>Jenis / Kategori Item</label><br>
+    <select name="kategori_id" class="form-select @error('kategori_id') is-invalid @enderror">
+        <option value="">-- Pilih Jenis Item --</option>
+        @foreach($kategoris as $kategori)
+            <option value="{{ $kategori->id }}" 
+                {{ old('kategori_id', $produk->kategori_id ?? '') == $kategori->id ? 'selected' : '' }}>
+                {{ $kategori->nama }}
+            </option>
+        @endforeach
+    </select>
+    @error('kategori_id')
+        <div class="invalid-feedback d-block">
+            {{ $message }}
+        </div>
+    @enderror
     <label>Nama Produk</label><br>
     <input type="text" name="name"
            class="form-control @error('name') is-invalid @enderror"

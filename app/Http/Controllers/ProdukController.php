@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use App\Models\Kategori;
 use App\Http\Requests\Produk\StoreRequest;
 use App\Http\Requests\Produk\UpdateRequest;
 use Illuminate\Support\Facades\Auth;
@@ -16,21 +17,19 @@ class ProdukController extends Controller
      */
     public function index(\Illuminate\Http\Request $request)
     {
-        $this->authorize('viewAny' , Produk::class);
+    $this->authorize('viewAny', Produk::class);
 
         $keyword = $request->input('search');
 
-    if ($keyword) {
-        $products = Produk::when($keyword, function ($query) use ($keyword) {
+        $query = Produk::with('kategori');
+
+        if ($keyword) {
             $query->where('nama', 'like', '%' . $keyword . '%');
-        })
-        ->orderBy('nama')
-        ->paginate(10)
-        ->withQueryString();
-    } else {
-        $products = Produk::latest()->paginate(10)->withQueryString();
-    }
-    return view('produk.index', compact('products'));
+        }
+
+        $products = $query->latest()->paginate(10)->withQueryString();
+
+        return view('produk.index', compact('products'));
     
     }
 
@@ -40,8 +39,10 @@ class ProdukController extends Controller
     public function create()
     {
         $this->authorize('create' , Produk::class);
-        
-        return view('produk.create');
+
+        $kategoris = Kategori::all();
+
+        return view('produk.create', compact('kategoris'));
     }
 
     /**
@@ -54,11 +55,14 @@ class ProdukController extends Controller
         
         $dataReq = $request->validated();
 
-    $data['user_id'] = Auth::id();
-    $data['nama'] = $dataReq['name'];
-    $data['harga_beli'] = $dataReq['purchase_price'];
-    $data['harga_jual'] = $dataReq['selling_price'];
-    $data['stok'] = $dataReq['stock'] ?? true;
+    $data = [
+            'user_id'     => Auth::id(),
+            'kategori_id' => $dataReq['category_id'] ?? $request->kategori_id,
+            'nama'        => $dataReq['name'],
+            'harga_beli'  => $dataReq['purchase_price'],
+            'harga_jual'  => $dataReq['selling_price'],
+            'stok'        => $dataReq['stock'] ?? 0, 
+        ];
 
     if ($request->hasFile('foto')) {
         $data['foto'] = $request->file('foto')->store('products', 'public');
@@ -76,7 +80,7 @@ class ProdukController extends Controller
     {
      $this->authorize('view', $produk);
 
-    return view('produk.show', compact('produk'));
+    return view('produk.show', compact('produk' ));
     }
 
     /**
@@ -85,8 +89,10 @@ class ProdukController extends Controller
     public function edit(Produk $produk)
     {
         $this->authorize('update' , Produk::class);
+
+        $kategoris = Kategori::all();
         
-        return view('produk.edit' , compact('produk'));
+        return view('produk.edit', compact('produk', 'kategoris'));
     }
 
     /**
@@ -94,13 +100,14 @@ class ProdukController extends Controller
      */
     public function update(UpdateRequest $request, Produk $produk)
     {
-        $this->authorize('update' , Produk::class);
+       $this->authorize('update', $produk);
         
         $dataReq = $request->validated();
 
     $data = [
         'user_id'    => Auth::id(),
         'nama'       => $dataReq['name'],
+        'kategori_id' => $dataReq['kategori_id'] ?? $request->kategori_id,
         'harga_beli' => $dataReq['purchase_price'],
         'harga_jual' => $dataReq['selling_price'],
         'stok'       => $dataReq['stock'],

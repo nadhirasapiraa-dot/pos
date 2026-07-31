@@ -16,6 +16,9 @@
         <li class="nav-item">
   <a class="nav-link {{ request()->is('penjualan*') ? 'active' : '' }}" aria-current="page" href="{{ route('penjualan.index') }}">Penjualan</a>
         </li>
+        <li class="nav-item">
+  <a class="nav-link {{ request()->is('kategori') ? 'active' : '' }}" aria-current="page" href="{{ route('kategori.index') }}">Jenis Item</a>
+        </li>
       </ul> 
       <form action="{{ route('logout') }}" method="POST" class="m-0">
         @csrf
