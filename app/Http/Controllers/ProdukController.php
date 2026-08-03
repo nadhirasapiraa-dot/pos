@@ -17,7 +17,7 @@ class ProdukController extends Controller
      */
     public function index(\Illuminate\Http\Request $request)
     {
-    $this->authorize('viewAny', Produk::class);
+        $this->authorize('viewAny', Produk::class);
 
         $keyword = $request->input('search');
 
@@ -30,7 +30,6 @@ class ProdukController extends Controller
         $products = $query->latest()->paginate(10)->withQueryString();
 
         return view('produk.index', compact('products'));
-    
     }
 
     /**
@@ -38,7 +37,7 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        $this->authorize('create' , Produk::class);
+        $this->authorize('create', Produk::class);
 
         $kategoris = Kategori::all();
 
@@ -51,36 +50,36 @@ class ProdukController extends Controller
     public function store(StoreRequest $request)
     {
 
-        $this->authorize('create' , Produk::class);
-        
+        $this->authorize('create', Produk::class);
+
         $dataReq = $request->validated();
 
-    $data = [
+        $data = [
             'user_id'     => Auth::id(),
             'kategori_id' => $dataReq['category_id'] ?? $request->kategori_id,
             'nama'        => $dataReq['name'],
             'harga_beli'  => $dataReq['purchase_price'],
             'harga_jual'  => $dataReq['selling_price'],
-            'stok'        => $dataReq['stock'] ?? 0, 
+            'stok'        => $dataReq['stock'] ?? 0,
         ];
 
-    if ($request->hasFile('foto')) {
-        $data['foto'] = $request->file('foto')->store('products', 'public');
-    }
-
-    Produk::create($data);
-
-    return redirect()->route('produk.index')->with('success', 'Product created successfully.');
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('products', 'public');
         }
+
+        Produk::create($data);
+
+        return redirect()->route('produk.index')->with('success', 'Product created successfully.');
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(Produk $produk)
     {
-     $this->authorize('view', $produk);
+        $this->authorize('view', $produk);
 
-    return view('produk.show', compact('produk' ));
+        return view('produk.show', compact('produk'));
     }
 
     /**
@@ -88,10 +87,10 @@ class ProdukController extends Controller
      */
     public function edit(Produk $produk)
     {
-        $this->authorize('update' , Produk::class);
+        $this->authorize('update', $produk);
 
         $kategoris = Kategori::all();
-        
+
         return view('produk.edit', compact('produk', 'kategoris'));
     }
 
@@ -100,55 +99,55 @@ class ProdukController extends Controller
      */
     public function update(UpdateRequest $request, Produk $produk)
     {
-       $this->authorize('update', $produk);
-        
+        $this->authorize('update', $produk);
+
         $dataReq = $request->validated();
 
-    $data = [
-        'user_id'    => Auth::id(),
-        'nama'       => $dataReq['name'],
-        'kategori_id' => $dataReq['kategori_id'] ?? $request->kategori_id,
-        'harga_beli' => $dataReq['purchase_price'],
-        'harga_jual' => $dataReq['selling_price'],
-        'stok'       => $dataReq['stock'],
-    ];
+        $data = [
+            'user_id'    => Auth::id(),
+            'nama'       => $dataReq['name'],
+            'kategori_id' => $dataReq['kategori_id'] ?? $request->kategori_id,
+            'harga_beli' => $dataReq['purchase_price'],
+            'harga_jual' => $dataReq['selling_price'],
+            'stok'       => $dataReq['stock'],
+        ];
 
-    // Jika upload foto baru
-    if ($request->hasFile('foto')) {
+        // Jika upload foto baru
+        if ($request->hasFile('foto')) {
 
-        // Hapus foto lama (jika ada & memang tersimpan)
-        if (
-            $produk->foto && 
-            Storage::disk('public')->exists($produk->foto)
-        ) {
-            Storage::disk('public')->delete($produk->foto);
+            // Hapus foto lama (jika ada & memang tersimpan)
+            if (
+                $produk->foto &&
+                Storage::disk('public')->exists($produk->foto)
+            ) {
+                Storage::disk('public')->delete($produk->foto);
+            }
+
+            // Simpan foto baru
+            $data['foto'] = $request->file('foto')->store('products', 'public');
         }
 
-        // Simpan foto baru
-        $data['foto'] = $request->file('foto')->store('products', 'public');
+        $produk->update($data);
+
+        return redirect()->route('produk.edit', $produk)->with('success', 'Product updated successfully.');
     }
-
-    $produk->update($data);
-
-    return redirect()->route('produk.edit', $produk)->with('success', 'Product updated successfully.');
-        }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Produk $produk)
     {
-        $this->authorize('delete' , Produk::class);
-        
-    if (
-        $produk->foto &&
-        Storage::disk('public')->exists($produk->foto)
-    ) {
-        Storage::disk('public')->delete($produk->foto);
-    }
+        $this->authorize('delete', $produk);
 
-    $produk->delete();
+        if (
+            $produk->foto &&
+            Storage::disk('public')->exists($produk->foto)
+        ) {
+            Storage::disk('public')->delete($produk->foto);
+        }
 
-    return redirect()->route('produk.index')->with('success', 'Product deleted successfully.');
+        $produk->delete();
+
+        return redirect()->route('produk.index')->with('success', 'Product deleted successfully.');
     }
 }
