@@ -44,6 +44,8 @@ $sales = Penjualan::orderBy('created_at', 'desc')->paginate(10);
         'quantity'   => 'required|integer|min:1'
     ]);
 
+    $errorMsg = null;
+
     DB::transaction(function () use ($request) {
 
         $sale = Penjualan::where('user_id', Auth::id())
@@ -54,11 +56,12 @@ $sales = Penjualan::orderBy('created_at', 'desc')->paginate(10);
             ->findOrFail($request->product_id);
 
         // Cek stok
-        if ($product->stok < $request->quantity) {
-            return redirect()
-                ->route('penjualan.create')
-                ->with('errors', 'Produk stok tidak mencukupi');
-        }
+     $product = Produk::find($request->produk_id);
+
+    if ($product->stok < $request->quantity) {
+        $errorMsg = 'Produk stok tidak mencukupi';
+        return;
+    }
 
         // Kurangi stok
         $product->decrement('stok', $request->quantity);
@@ -90,6 +93,14 @@ $sales = Penjualan::orderBy('created_at', 'desc')->paginate(10);
         $sale->total_pembayaran = $sale->itemPenjualan()->sum('subtotal');
         $sale->save();
     });
+
+            if ($errorMsg) {
+
+            return redirect()
+                ->route('penjualan.create')
+                ->with('error', $errorMsg);
+        }
+
      return back();
 }
     
@@ -121,7 +132,14 @@ $sales = Penjualan::orderBy('created_at', 'desc')->paginate(10);
         'quantity' => 'required|integer|min:1'
     ]);
 
-    DB::transaction(function () use ($request, $itempenjualan) {
+     $errorMsg = null;
+
+            DB::transaction(function () use (
+            $request,
+            $itempenjualan,
+            &$errorMsg
+        ) {
+
 
     $produk = $itempenjualan->produk()->lockForUpdate()->first();
 
@@ -139,8 +157,25 @@ $sales = Penjualan::orderBy('created_at', 'desc')->paginate(10);
 
         // Jika qty berkurang, kembalikan stok
         if ($selisih < 0) {
-            $produk->increment('stok', abs($selisih));
+             if ($produk->stok < $selisih) {
+
+            $errorMsg = 'Stok tidak mencukupi';
+
+            return;
+
+             }
+        $produk->decrement('stok', $selisih);
+
         }
+                    // Jika qty berkurang
+            if ($selisih < 0) {
+
+                $produk->increment(
+                    'stok',
+                    abs($selisih)
+                );
+            }
+
 
         // Update item
         $itempenjualan->update([
@@ -153,6 +188,13 @@ $sales = Penjualan::orderBy('created_at', 'desc')->paginate(10);
             'total_pembayaran' => $itempenjualan->penjualan->itemPenjualan()->sum('subtotal')
         ]);
     });
+
+    if ($errorMsg) {
+
+        return redirect()
+            ->route('penjualan.create')
+            ->with('error', $errorMsg);
+        }
 
     return back();
 }
