@@ -55,8 +55,6 @@ $sales = Penjualan::orderBy('created_at', 'desc')->paginate(10);
         $product = Produk::lockForUpdate()
             ->findOrFail($request->product_id);
 
-        // Cek stok
-     $product = Produk::find($request->produk_id);
 
     if ($product->stok < $request->quantity) {
         $errorMsg = 'Produk stok tidak mencukupi';

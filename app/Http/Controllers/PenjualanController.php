@@ -85,6 +85,13 @@ class PenjualanController extends Controller
      */
     public function show(Penjualan $penjualan)
     {
+            if (
+        Auth::user()->role->name === 'kasir'
+        && $penjualan->user_id !== Auth::id()
+        ) {
+            abort(403);
+        }
+
         $penjualan->load(['itemPenjualan.produk', 'user']);
 
         return view('penjualan.show', compact('penjualan'));
@@ -95,6 +102,14 @@ class PenjualanController extends Controller
      */
     public function edit(Penjualan $penjualan)
     {   
+
+        if (
+        Auth::user()->role->name === 'kasir'
+        && $penjualan->user_id !== Auth::id()
+    ) {
+        abort(403);
+    }
+
     $sale = $penjualan;
 
     abort_if($sale->status === 'COMPLETED', 403);
@@ -111,6 +126,14 @@ class PenjualanController extends Controller
      */
     public function update(Request $request, Penjualan $penjualan)
     {
+
+    if (
+        Auth::user()->role->name === 'kasir'
+        && $penjualan->user_id !== Auth::id()
+    ) {
+        abort(403);
+    }
+
     $request->validate([
         'payment_method' => 'required|in:CASH,QRIS'
     ]);

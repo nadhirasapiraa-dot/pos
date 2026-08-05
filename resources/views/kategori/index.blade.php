@@ -1,52 +1,59 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Kategori')
+@section('title', 'Jenis / Kategori')
 
 @section('content')
 
-
-@include('layouts.navbar')
-
-<div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4>Daftar Jenis / Kategori Item</h4>
-        <a href="{{ route('kategori.create') }}" class="btn btn-primary">Tambah Kategori</a>
+<div class="kpd-page-header">
+    <div>
+        <h3>Jenis / Kategori Item</h3>
+        <p><i class="bi bi-tags me-1"></i>Kelola pengelompokan produk</p>
     </div>
+    <a href="{{ route('kategori.create') }}" class="btn btn-kpd-primary">
+        <i class="bi bi-plus-lg me-1"></i> Tambah Kategori
+    </a>
+</div>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <div class="card">
-        <div class="card-body">
-            <table class="table table-bordered table-striped">
+<div class="kpd-card">
+    <div class="kpd-card-body">
+        <div class="table-responsive">
+            <table class="table kpd-table align-middle mb-0">
                 <thead>
                     <tr>
-                        <th width="50">No</th>
+                        <th width="60">No</th>
                         <th>Nama Kategori</th>
-                        <th width="200">Aksi</th>
+                        <th width="180" class="text-end">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($kategoris as $key => $kategori)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $kategori->nama }}</td>
-                            <td>
-                                <a href="{{ route('kategori.edit', $kategori->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                
-                                <form action="{{ route('kategori.destroy', $kategori->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                </form>
+                            <td class="fw-semibold">
+                                <i class="bi bi-tag-fill text-danger me-1"></i>{{ $kategori->nama }}
+                            </td>
+                            <td class="text-end">
+                                <div class="d-inline-flex gap-1">
+                                    <a href="{{ route('kategori.edit', $kategori->id) }}" class="btn btn-outline-kpd btn-sm">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <form action="{{ route('kategori.destroy', $kategori->id) }}" method="POST" class="d-inline"
+                                          onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3" class="text-center">Belum ada data kategori.</td>
+                            <td colspan="3" class="kpd-empty">
+                                <i class="bi bi-inbox"></i>
+                                Belum ada data kategori.
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
