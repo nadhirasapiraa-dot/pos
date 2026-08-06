@@ -58,13 +58,16 @@ class PenjualanController extends Controller
         $keyword = $request->input('search');
 
         if($keyword) {
-            $products = Produk::when($keyword, function ($query) use ($keyword) {
-                $query->where('nama' , 'like' , '%' . $keyword . '%');
-             })
-             ->orderBy('nama')
-             ->get();
+        $products = Produk::where('stok', '>', 0)
+        ->when($keyword, function ($query) use ($keyword) {
+            $query->where('nama', 'like', '%' . $keyword . '%');
+        })
+        ->orderBy('nama')
+        ->get();
         }else {
-            $products = Produk::orderBy('nama')->get();
+           $products = Produk::where('stok', '>', 0)
+        ->orderBy('nama')
+        ->get();
         }
         
         $mode = 'create' ;

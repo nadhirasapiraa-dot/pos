@@ -49,10 +49,7 @@
 </div>
 
 <div class="d-flex gap-2">
-    <button class="btn btn-kpd-primary px-4">
+    <button class="btn btn-kpd-primary px-4 ">
         <i class="bi bi-check-lg me-1"></i> Simpan
     </button>
-    <a href="{{ route('admin.users') }}" class="btn btn-outline-secondary px-4">
-        Kembali
-    </a>
 </div>

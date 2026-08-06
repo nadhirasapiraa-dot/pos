@@ -22,6 +22,11 @@
                 <input type="text" name="search" value="{{ request()->search }}"
                        class="form-control" placeholder="Cari nama kasir...">
                 <button class="btn btn-outline-kpd" type="submit">Cari</button>
+                @if(request()->search)
+                    <a href="{{ route('penjualan.index') }}" class="btn btn-secondary">
+                        <i class="bi bi-x-lg"></i> Reset
+                    </a>
+                @endif
             </div>
         </form>
     </div>

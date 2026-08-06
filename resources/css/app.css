@@ -11,11 +11,6 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-/* =========================================================
-   TEMA "KOPDES MERAH PUTIH" — Koperasi Desa Merah Putih
-   Gaya portal pemerintah desa: merah - putih, bersih, modern
-   ========================================================= */
-
 :root {
     --kpd-red: #B3141E;
     --kpd-red-dark: #7A0C14;
@@ -47,13 +42,11 @@ body {
     min-height: 100vh;
 }
 
-/* ---------- App Shell ---------- */
 .kpd-shell {
     display: flex;
     min-height: 100vh;
 }
 
-/* ---------- Sidebar ---------- */
 .kpd-sidebar {
     width: var(--kpd-sidebar-w);
     flex-shrink: 0;
@@ -188,7 +181,6 @@ body {
     color: #fff;
 }
 
-/* ---------- Main / Topbar ---------- */
 .kpd-main {
     margin-left: var(--kpd-sidebar-w);
     flex: 1;
@@ -265,7 +257,6 @@ body {
     flex: 1;
 }
 
-/* ---------- Cards ---------- */
 .kpd-card {
     background: #fff;
     border: 1px solid var(--kpd-border);
@@ -308,7 +299,6 @@ body {
     font-size: .85rem;
 }
 
-/* ---------- Stat cards (dashboard) ---------- */
 .kpd-stat {
     border-radius: var(--kpd-radius);
     padding: 1.15rem 1.25rem;
@@ -337,7 +327,7 @@ body {
     position: absolute;
     right: 1rem;
     bottom: .75rem;
-    font-size: 2rem;
+    font-size: 2.5rem;
     opacity: .35;
 }
 
@@ -360,7 +350,6 @@ body {
 .kpd-stat-green { background: linear-gradient(135deg, #22945a 0%, var(--kpd-green) 100%); }
 .kpd-stat-gold { background: linear-gradient(135deg, #e0b73f 0%, #b4872a 100%); }
 
-/* ---------- Buttons ---------- */
 .btn-kpd-primary {
     background: linear-gradient(135deg, var(--kpd-red) 0%, var(--kpd-red-dark) 100%);
     border: none;
@@ -384,7 +373,6 @@ body {
 
 .btn-sm { border-radius: 8px; }
 
-/* ---------- Tables ---------- */
 .kpd-table thead {
     background: #FBEFEF;
 }
@@ -406,12 +394,18 @@ body {
 
 .kpd-table tbody tr:hover { background: #FDF7F7; }
 
-/* ---------- Badges ---------- */
 .badge-kpd-open { background: #FFF3CD; color: #8A6100; }
 .badge-kpd-completed { background: #DFF3E7; color: var(--kpd-green); }
 .badge-kpd-success { background: #DDEBFF; color: #1450A3; }
 
-/* ---------- Login Page ---------- */
+.role-badge {
+    width: 70px;
+    font-size: 14px;
+    padding: 8px 14px;
+    text-align: center;
+    display: inline-block;
+}
+
 .kpd-auth-wrap {
     min-height: 100vh;
     display: flex;
@@ -471,7 +465,6 @@ body {
     background: repeating-linear-gradient(90deg, var(--kpd-red) 0 20px, #fff 20px 40px);
 }
 
-/* ---------- Misc ---------- */
 .kpd-empty {
     text-align: center;
     padding: 2.5rem 1rem;

@@ -8,7 +8,7 @@ class Kategori extends Model
 {
     protected $fillable = ['nama']; // Boleh diisi kolom 'nama'
 
-    public function produks()
+    public function produk()
     {
         return $this->hasMany(Produk::class);
     }

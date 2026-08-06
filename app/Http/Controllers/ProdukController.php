@@ -139,6 +139,11 @@ class ProdukController extends Controller
     {
         $this->authorize('delete', $produk);
 
+            if ($produk->itemPenjualan()->exists()) {
+        return redirect()->route('produk.index')
+            ->with('error', 'Produk tidak bisa dihapus karena sudah digunakan dalam transaksi penjualan.');
+    }
+    
         if (
             $produk->foto &&
             Storage::disk('public')->exists($produk->foto)

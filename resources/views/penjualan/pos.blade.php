@@ -22,8 +22,6 @@
 </div>
 
 <div class="row g-3">
-
-    {{-- ==================== PRODUK ==================== --}}
     <div class="col-lg-6">
         <div class="kpd-card h-100">
             <div class="kpd-card-header">
@@ -39,6 +37,11 @@
                                class="form-control"
                                placeholder="Cari produk...">
                         <button class="btn btn-outline-kpd" type="submit">Cari</button>
+                        @if(request('search'))
+                            <a href="{{ route('penjualan.create') }}" class="btn btn-secondary">
+                                <i class="bi bi-x-lg"></i> Reset
+                            </a>
+                        @endif
                     </div>
                 </form>
 
@@ -87,8 +90,6 @@
         </div>
     </div>
 
-
-    {{-- ==================== KERANJANG ==================== --}}
     <div class="col-lg-6">
         <div class="kpd-card h-100 d-flex flex-column">
             <div class="kpd-card-header">

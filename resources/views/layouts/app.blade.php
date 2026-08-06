@@ -14,8 +14,6 @@
 <body>
 
 @auth
-    {{-- ============ TAMPILAN SETELAH LOGIN (sidebar + topbar) ============ --}}
-    <div class="kpd-shell">
 
         <div class="kpd-sidebar-backdrop" id="kpdSidebarBackdrop"></div>
 
@@ -40,14 +38,14 @@
                 </a>
 
                 <a href="{{ route('penjualan.index') }}" class="kpd-nav-link {{ request()->is('penjualan*') ? 'active' : '' }}">
-                    <i class="bi bi-cart-check-fill"></i> Kasir / Penjualan
+                    <i class="bi bi-cart-check-fill"></i> Kasir 
                 </a>
 
                 @if(auth()->check() && auth()->user()->role_id == 1)
                     <div class="kpd-nav-section">Administrasi</div>
 
                     <a href="{{ route('kategori.index') }}" class="kpd-nav-link {{ request()->is('kategori*') ? 'active' : '' }}">
-                        <i class="bi bi-tags-fill"></i> Jenis / Kategori
+                        <i class="bi bi-tags-fill"></i> Kategori
                     </a>
 
                     <a href="{{ route('admin.users') }}" class="kpd-nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
@@ -106,7 +104,6 @@
         </div>
     </div>
 @else
-    {{-- ============ TAMPILAN BELUM LOGIN (halaman login full-page) ============ --}}
     @yield('content')
 @endauth
 

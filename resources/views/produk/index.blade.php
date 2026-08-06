@@ -4,6 +4,12 @@
 
 @section('content')
 
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 <div class="kpd-page-header">
     <div>
         <h3>Data Produk</h3>
@@ -24,6 +30,11 @@
                 <input type="text" name="search" value="{{ request('search') }}"
                        class="form-control" placeholder="Cari nama produk...">
                 <button class="btn btn-outline-kpd" type="submit">Cari</button>
+                @if(request('search'))
+                    <a href="{{ route('produk.index') }}" class="btn btn-secondary">
+                        <i class="bi bi-x-lg"></i> Reset
+                    </a>
+                @endif
             </div>
         </form>
     </div>

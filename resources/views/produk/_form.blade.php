@@ -98,9 +98,6 @@
             <button class="btn btn-kpd-primary px-4" type="submit">
                 <i class="bi bi-check-lg me-1"></i> Simpan
             </button>
-            <a href="{{ route('produk.index') }}" class="btn btn-outline-secondary px-4">
-                Batal
-            </a>
         </div>
     </div>
 </div>

@@ -4,6 +4,13 @@
 
 @section('content')
 
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+
 <div class="kpd-page-header">
     <div>
         <h3>Jenis / Kategori Item</h3>

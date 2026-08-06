@@ -31,7 +31,6 @@
                 <button type="submit" class="btn btn-kpd-primary px-4">
                     <i class="bi bi-check-lg me-1"></i> Simpan
                 </button>
-                <a href="{{ route('kategori.index') }}" class="btn btn-outline-secondary px-4">Batal</a>
             </div>
         </form>
     </div>

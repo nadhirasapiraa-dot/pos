@@ -22,6 +22,11 @@
                 <input type="text" name="search" value="{{ request('search') }}"
                        class="form-control" placeholder="Cari nama atau email...">
                 <button class="btn btn-outline-kpd" type="submit">Cari</button>
+                @if(request('search'))
+                    <a href="{{ route('admin.users') }}" class="btn btn-secondary">
+                        <i class="bi bi-x-lg"></i> Reset
+                    </a>
+                @endif
             </div>
         </form>
     </div>
@@ -52,7 +57,7 @@
                         </td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <span class="badge {{ $user->role->name === 'admin' ? 'bg-danger' : 'bg-secondary' }}">
+                            <span class="badge {{ $user->role->name === 'admin' ? 'bg-danger' : 'bg-secondary' }} role-badge">
                                 {{ ucfirst($user->role->name) }}
                             </span>
                         </td>

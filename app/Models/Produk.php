@@ -31,7 +31,7 @@ class Produk extends Model
         return $this->hasMany(ItemPenjualan::class, 'produk_id');
     }
 
-    public function kategori() // 👈 PASTIKAN FUNGSI INI ADA
+    public function kategori() 
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
