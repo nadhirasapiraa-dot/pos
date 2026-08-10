@@ -101,8 +101,10 @@
             </table>
         </div>
     </div>
-    <div class="kpd-card-body pt-0">
+    <div class="kpd-card-body pt-0 pagination-slide">
+        <div class="kpd-pagination-info">
         {{ $sales->links() }}
+        </div>
     </div>
 </div>
 @endsection

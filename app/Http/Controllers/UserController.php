@@ -19,13 +19,16 @@ class UserController extends Controller
     {
         $keyword = $request->input('search');
 
-        if ($keyword) {
-        $users = User::whereRaw("MATCH(name, email) AGAINST(? IN BOOLEAN MODE)", [$keyword])
+    $users = User::query()
+        ->when($keyword, function ($query) use ($keyword) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'like', "%{$keyword}%")
+                  ->orWhere('email', 'like', "%{$keyword}%");
+            });
+        })
         ->paginate(10)
         ->withQueryString();
-        } else {
-        $users = User::query()->paginate(10)->withQueryString();
-        }
+
 
         return view('users.index', compact('users'));
         }
@@ -36,13 +39,10 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-
+    
         return view('users.create' , compact('roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreRequest $request)
     {
         $dataReq = $request->validated();

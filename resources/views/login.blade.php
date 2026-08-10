@@ -33,7 +33,7 @@
                         <span class="input-group-text bg-white"><i class="bi bi-envelope-fill text-danger"></i></span>
                         <input type="email" name="email" value="{{ old('email') }}"
                                class="form-control @error('email') is-invalid @enderror"
-                               id="email" placeholder="nama@koperasi.desa" autofocus>
+                               id="email" placeholder="nama@gmail.com" autofocus>
                     </div>
                     @error('email')
                         <div class="text-danger small mt-1">{{ $message }}</div>
@@ -47,6 +47,9 @@
                         <input type="password" name="password"
                                class="form-control @error('password') is-invalid @enderror"
                                id="password" placeholder="••••••••">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                    <i class="bi bi-eye" id="toggleIcon"></i>
+                </button>
                     </div>
                     @error('password')
                         <div class="text-danger small mt-1">{{ $message }}</div>
@@ -59,9 +62,27 @@
             </form>
 
             <p class="text-center text-muted small mt-4 mb-0">
-                &copy; {{ date('Y') }} Koperasi Desa Merah Putih — Republik Indonesia
+                &copy; {{ date('Y') }} Koperasi Desa Merah Putih.
             </p>
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById('togglePassword').addEventListener('click', function () {
+    const password = document.getElementById('password');
+    const icon = document.getElementById('toggleIcon');
+
+    if (password.type === 'password') {
+        password.type = 'text';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    } else {
+        password.type = 'password';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    }
+});
+</script>
+
 @endsection

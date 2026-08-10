@@ -14,7 +14,7 @@
     </a>
 </div>
 
-<div class="kpd-card">
+<div class="kpd-card text-center">
     <div class="kpd-card-body pb-0">
         <form action="{{ route('admin.users') }}" method="GET">
             <div class="input-group">
@@ -24,14 +24,14 @@
                 <button class="btn btn-outline-kpd" type="submit">Cari</button>
                 @if(request('search'))
                     <a href="{{ route('admin.users') }}" class="btn btn-secondary">
-                        <i class="bi bi-x-lg"></i> Reset
+                        <i class="bi bi-x-lg"></i> Hapus
                     </a>
                 @endif
             </div>
         </form>
     </div>
 
-    <div class="kpd-card-body">
+    <div class="kpd-card-body text-center">
         <div class="table-responsive">
             <table class="table kpd-table align-middle mb-0">
                 <thead>

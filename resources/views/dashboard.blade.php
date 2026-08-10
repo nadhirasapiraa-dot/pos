@@ -47,7 +47,7 @@
 </div>
 @endcan
 
-<div class="row g-3 mb-4">
+<div class="row g-3 mb-4 dashboard-table">
     <div class="col-lg-6">
         <div class="kpd-card h-100">
             <div class="kpd-card-header">
@@ -89,7 +89,7 @@
     </div>
 
     <div class="col-lg-6">
-        <div class="kpd-card h-100">
+        <div class="kpd-card">
             <div class="kpd-card-header">
                 <h5><i class="bi bi-x-octagon-fill text-danger me-2"></i>Stok Habis</h5>
             </div>

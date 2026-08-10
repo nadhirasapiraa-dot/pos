@@ -14,7 +14,7 @@
     <label class="form-label small fw-semibold">Email</label>
     <input type="email" name="email"
            class="form-control @error('email') is-invalid @enderror"
-           value="{{ old('email', $user->email ?? '') }}" placeholder="nama@koperasi.desa">
+           value="{{ old('email', $user->email ?? '') }}" placeholder="nama@gmail.com">
            @error('email')
                <div class="invalid-feedback">{{ $message }}</div>
            @enderror
