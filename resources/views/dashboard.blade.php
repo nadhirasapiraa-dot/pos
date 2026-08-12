@@ -18,30 +18,38 @@
 <div class="row g-3 mb-4">
     <div class="col-6 col-lg-3">
         <div class="kpd-stat kpd-stat-red">
-            <div class="kpd-stat-label">Total Penjualan Hari Ini</div>
-            <div class="kpd-stat-value">Rp {{ number_format($ringkasan['total_penjualan']) }}</div>
             <i class="bi bi-graph-up-arrow kpd-stat-icon"></i>
+            <div>
+                <div class="kpd-stat-label">Total Penjualan Hari Ini</div>
+                <div class="kpd-stat-value">Rp {{ number_format($ringkasan['total_penjualan']) }}</div>
+            </div>
         </div>
     </div>
     <div class="col-6 col-lg-3">
         <div class="kpd-stat kpd-stat-dark">
-            <div class="kpd-stat-label">Jumlah Transaksi</div>
-            <div class="kpd-stat-value">{{ $ringkasan['total_transaksi'] }}</div>
             <i class="bi bi-receipt kpd-stat-icon"></i>
+            <div>
+                <div class="kpd-stat-label">Jumlah Transaksi</div>
+                <div class="kpd-stat-value">{{ $ringkasan['total_transaksi'] }}</div>
+            </div>
         </div>
     </div>
     <div class="col-6 col-lg-3">
         <div class="kpd-stat kpd-stat-green">
-            <div class="kpd-stat-label">Pembayaran Tunai</div>
-            <div class="kpd-stat-value">Rp {{ number_format($ringkasan['total_cash']) }}</div>
             <i class="bi bi-cash-stack kpd-stat-icon"></i>
+            <div>
+                <div class="kpd-stat-label">Pembayaran Tunai</div>
+                <div class="kpd-stat-value">Rp {{ number_format($ringkasan['total_cash']) }}</div>
+            </div>
         </div>
     </div>
     <div class="col-6 col-lg-3">
         <div class="kpd-stat kpd-stat-gold">
-            <div class="kpd-stat-label">Pembayaran Non-Tunai</div>
-            <div class="kpd-stat-value">Rp {{ number_format($ringkasan['total_non_tunai']) }}</div>
             <i class="bi bi-qr-code kpd-stat-icon"></i>
+            <div>
+                <div class="kpd-stat-label">Pembayaran Non-Tunai</div>
+                <div class="kpd-stat-value">Rp {{ number_format($ringkasan['total_non_tunai']) }}</div>
+            </div>
         </div>
     </div>
 </div>
@@ -58,9 +66,9 @@
                     <table class="table kpd-table mb-0">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th class="kpd-fit">#</th>
                                 <th>Nama</th>
-                                <th class="text-end">Stok</th>
+                                <th class="text-end kpd-fit">Stok</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,9 +106,9 @@
                     <table class="table kpd-table mb-0">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th class="kpd-fit">#</th>
                                 <th>Nama</th>
-                                <th class="text-end">Stok</th>
+                                <th class="text-end kpd-fit">Stok</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -139,8 +147,8 @@
                 <thead>
                     <tr>
                         <th>Nama</th>
-                        <th>Stok</th>
-                        <th class="text-end">Unit Terjual</th>
+                        <th class="kpd-fit">Stok</th>
+                        <th class="text-end kpd-fit">Unit Terjual</th>
                     </tr>
                 </thead>
                 <tbody>

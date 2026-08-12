@@ -50,7 +50,7 @@ body {
 .kpd-sidebar {
     width: var(--kpd-sidebar-w);
     flex-shrink: 0;
-    background: linear-gradient(180deg, var(--kpd-red) 0%, var(--kpd-red-dark) 55%, var(--kpd-red-darker) 100%);
+    background: var(--kpd-red-dark);
     color: #fff;
     position: fixed;
     top: 0;
@@ -62,20 +62,11 @@ body {
     transition: transform .25s ease;
 }
 
-.kpd-sidebar::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle at 15% 8%, rgba(255,255,255,.08) 0, transparent 45%),
-                       radial-gradient(circle at 90% 90%, rgba(255,255,255,.06) 0, transparent 40%);
-    pointer-events: none;
-}
-
 .kpd-brand {
     display: flex;
     align-items: center;
     gap: .75rem;
-    padding: 1.35rem 1.25rem;
+    padding: 1.1rem 1.25rem;
     border-bottom: 1px solid rgba(255,255,255,.15);
     position: relative;
     z-index: 1;
@@ -97,46 +88,36 @@ body {
 
 .kpd-brand-text .kpd-brand-title {
     font-weight: 800;
-    font-size: .92rem;
+    font-size: .98rem;
     line-height: 1.15;
-    letter-spacing: .3px;
+    letter-spacing: .2px;
 }
 
 .kpd-brand-text .kpd-brand-sub {
-    font-size: .68rem;
-    opacity: .8;
-    letter-spacing: .5px;
-    text-transform: uppercase;
+    font-size: .78rem;
+    opacity: .85;
+    letter-spacing: .2px;
 }
 
 .kpd-nav {
     flex: 1;
     overflow-y: auto;
-    padding: 1rem .85rem;
+    padding: 1rem .75rem;
     position: relative;
     z-index: 1;
-}
-
-.kpd-nav-section {
-    font-size: .65rem;
-    text-transform: uppercase;
-    letter-spacing: .8px;
-    opacity: .65;
-    padding: .75rem .6rem .35rem;
-    font-weight: 700;
 }
 
 .kpd-nav-link {
     display: flex;
     align-items: center;
     gap: .7rem;
-    padding: .62rem .75rem;
-    border-radius: 10px;
+    padding: .6rem .75rem;
+    border-radius: 8px;
     color: rgba(255,255,255,.88);
     text-decoration: none;
-    font-size: .875rem;
+    font-size: .92rem;
     font-weight: 500;
-    margin-bottom: .2rem;
+    margin-bottom: .15rem;
     transition: background .15s ease, color .15s ease;
 }
 
@@ -242,14 +223,12 @@ body {
     flex-shrink: 0;
 }
 
-.kpd-user-meta { line-height: 1.1; }
-.kpd-user-meta .kpd-user-name { font-size: .82rem; font-weight: 700; color: var(--kpd-text); }
+.kpd-user-meta { line-height: 1.2; }
+.kpd-user-meta .kpd-user-name { font-size: .87rem; font-weight: 700; color: var(--kpd-text); }
 .kpd-user-meta .kpd-user-role {
-    font-size: .68rem;
+    font-size: .75rem;
     color: var(--kpd-red-dark);
-    text-transform: uppercase;
-    letter-spacing: .4px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .kpd-content {
@@ -292,9 +271,9 @@ body {
     flex-wrap: wrap;
 }
 
-.kpd-card-header h5, .kpd-card-header h4 { margin: 0; font-weight: 700; }
+.kpd-card-header h5, .kpd-card-header h4 { margin: 0; font-weight: 700; font-size: 1.05rem; }
 
-.kpd-card-body { padding: 1.25rem; }
+.kpd-card-body { padding: 1.1rem 1.25rem; }
 
 .kpd-page-header {
     display: flex;
@@ -314,51 +293,40 @@ body {
 .kpd-page-header p {
     margin: .15rem 0 0;
     color: var(--kpd-text-muted);
-    font-size: .85rem;
+    font-size: .9rem;
 }
 
 .kpd-stat {
     border-radius: var(--kpd-radius);
     padding: 1.15rem 1.25rem;
     color: #fff;
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--kpd-shadow);
+    box-shadow: var(--kpd-shadow-sm);
     min-height: 108px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+}
+
+.kpd-stat-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: rgba(255,255,255,.18);
+    display: flex;
+    align-items: center;
     justify-content: center;
-}
-
-.kpd-stat::after {
-    content: "";
-    position: absolute;
-    right: -18px;
-    top: -18px;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.14);
-}
-
-.kpd-stat .kpd-stat-icon {
-    position: absolute;
-    right: 1rem;
-    bottom: .75rem;
-    font-size: 2.5rem;
-    opacity: .35;
+    font-size: 1rem;
+    margin-bottom: .6rem;
 }
 
 .kpd-stat-label {
-    font-size: .72rem;
-    text-transform: uppercase;
-    letter-spacing: .5px;
+    font-size: .8rem;
     opacity: .9;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .kpd-stat-value {
-    font-size: 1.55rem;
+    font-size: 1.5rem;
     font-weight: 800;
     margin-top: .15rem;
 }
@@ -374,14 +342,17 @@ body {
     color: #fff;
     font-weight: 600;
     box-shadow: var(--kpd-shadow-sm);
+    transition: filter .15s ease, transform .1s ease;
 }
 .btn-kpd-primary:hover { color: #fff; filter: brightness(1.08); }
+.btn-kpd-primary:active { transform: scale(.98); }
 
 .btn-outline-kpd {
     border: 1.5px solid var(--kpd-red);
     color: var(--kpd-red-dark);
     background: #fff;
     font-weight: 600;
+    transition: background .15s ease, color .15s ease;
 }
 .btn-outline-kpd:hover { background: var(--kpd-red); color: #fff; }
 
@@ -391,26 +362,76 @@ body {
 
 .btn-sm { border-radius: 8px; }
 
+.form-control:focus, .form-select:focus {
+    border-color: var(--kpd-red-light);
+    box-shadow: 0 0 0 .2rem rgba(179,20,30,.13);
+}
+
+.input-group-text {
+    border-color: #ced4da;
+}
+
+.kpd-card {
+    transition: box-shadow .15s ease;
+}
+
 .kpd-table thead {
     background: #FBEFEF;
 }
 
 .kpd-table thead th {
     color: var(--kpd-red-dark);
-    font-size: .72rem;
-    text-transform: uppercase;
-    letter-spacing: .5px;
-    font-weight: 800;
+    font-size: .85rem;
+    font-weight: 700;
     border-bottom: none;
     white-space: nowrap;
+    padding-top: .8rem;
+    padding-bottom: .8rem;
 }
 
 .kpd-table td {
     vertical-align: middle;
-    font-size: .875rem;
+    font-size: .95rem;
 }
 
+/* Kolom sempit (id, ikon, badge status, tombol aksi) dikasih class
+   "kpd-fit" di blade supaya menyusut mengikuti isi — sisa ruang
+   diserap kolom konten utama (Nama, dst), jadi tabel pendek nggak
+   terlihat "meregang" dan berjarak jauh. */
+.kpd-table .kpd-fit {
+    width: 1%;
+    white-space: nowrap;
+}
+
+/* Kolom Aksi selalu kolom terakhir di semua tabel — dipaksa satu baris
+   supaya tombol Edit/Hapus tidak pernah patah baris dan jadi tidak sejajar. */
+.kpd-table th:last-child, .kpd-table td:last-child {
+    width: 1%;
+    white-space: nowrap;
+}
+
+/* Tabel dengan kolom sedikit (Pengguna, Kategori) dibuat tidak melar
+   penuh selebar card, biar tidak kelihatan renggang — tabelnya
+   menyusut ke isinya lalu di-center di dalam card. */
+.kpd-table-center {
+    width: auto;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.kpd-table-center td, .kpd-table-center th {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+.kpd-table tbody tr { transition: background .12s ease; }
 .kpd-table tbody tr:hover { background: #FDF7F7; }
+
+.kpd-table .badge {
+    font-size: .82rem;
+    font-weight: 600;
+    padding: .4em .7em;
+}
 
 .badge-kpd-open { background: #FFF3CD; color: #8A6100; }
 .badge-kpd-completed { background: #DFF3E7; color: var(--kpd-green); }
@@ -429,10 +450,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background:
-        radial-gradient(circle at 12% 18%, rgba(255,255,255,.08) 0, transparent 40%),
-        radial-gradient(circle at 90% 85%, rgba(255,255,255,.08) 0, transparent 40%),
-        linear-gradient(160deg, var(--kpd-red) 0%, var(--kpd-red-dark) 55%, var(--kpd-red-darker) 100%);
+    background: var(--kpd-red-dark);
     padding: 1.5rem;
 }
 
@@ -472,7 +490,7 @@ body {
 
 .kpd-auth-header p {
     color: var(--kpd-text-muted);
-    font-size: .8rem;
+    font-size: .88rem;
     margin: 0;
 }
 
@@ -545,24 +563,8 @@ body {
     border-color: var(--kpd-border);
 }
 
-/* Pagination layout */
-.kpd-pagination {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .75rem;
-    padding: 1rem 0;
-}
-
-/* Text showing */
-.kpd-pagination-info {
-    color: var(--kpd-text-muted);
+/* Teks "Showing X to Y of Z results" pada komponen pagination bawaan Laravel */
+.pagination + p,
+p.text-muted.small {
     font-size: .85rem;
-    font-weight: 600;
-    text-align: center;
-}
-
-/* Tombol pagination */
-.kpd-pagination .pagination {
-    margin: 0;
 }

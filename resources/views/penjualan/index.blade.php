@@ -36,13 +36,13 @@
             <table class="table kpd-table align-middle mb-0">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th class="kpd-fit">#</th>
                         <th>Tanggal Transaksi</th>
                         <th>Kasir</th>
-                        <th>Total Pembayaran</th>
-                        <th>Metode</th>
-                        <th>Status</th>
-                        <th class="text-end">Aksi</th>
+                        <th class="kpd-fit">Total Pembayaran</th>
+                        <th class="kpd-fit">Metode</th>
+                        <th class="kpd-fit">Status</th>
+                        <th class="text-end kpd-fit">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,7 +68,7 @@
                             @endif
                         </td>
                         <td class="text-end">
-                            <div class="d-inline-flex gap-1">
+                            <div class="d-inline-flex align-items-center gap-1">
                                 <a href="{{ route('penjualan.show', $sale->id) }}" class="btn btn-outline-secondary btn-sm">
                                     <i class="bi bi-eye"></i>
                                 </a>
@@ -101,10 +101,8 @@
             </table>
         </div>
     </div>
-    <div class="kpd-card-body pt-0 pagination-slide">
-        <div class="kpd-pagination-info">
+    <div class="kpd-card-body pt-0">
         {{ $sales->links() }}
-        </div>
     </div>
 </div>
 @endsection

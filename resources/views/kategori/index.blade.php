@@ -24,12 +24,12 @@
 <div class="kpd-card">
     <div class="kpd-card-body">
         <div class="table-responsive">
-            <table class="table kpd-table align-middle mb-0">
+            <table class="table kpd-table kpd-table-center align-middle mb-0">
                 <thead>
                     <tr>
-                        <th width="60">No</th>
+                        <th width="60" class="kpd-fit">No</th>
                         <th>Nama Kategori</th>
-                        <th width="180" class="text-end">Aksi</th>
+                        <th class="text-end kpd-fit">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +40,7 @@
                                 <i class="bi bi-tag-fill text-danger me-1"></i>{{ $kategori->nama }}
                             </td>
                             <td class="text-end">
-                                <div class="d-inline-flex gap-1">
+                                <div class="d-inline-flex align-items-center gap-1">
                                     <a href="{{ route('kategori.edit', $kategori->id) }}" class="btn btn-outline-kpd btn-sm">
                                         <i class="bi bi-pencil"></i>
                                     </a>

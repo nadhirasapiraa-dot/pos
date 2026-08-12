@@ -27,31 +27,27 @@
             </div>
 
             <nav class="kpd-nav">
-                <div class="kpd-nav-section">Menu Utama</div>
-
                 <a href="{{ route('dashboard') }}" class="kpd-nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                     <i class="bi bi-grid-1x2-fill"></i> Dashboard
                 </a>
+
+                @if(auth()->check() && auth()->user()->role_id == 1)
+                    <a href="{{ route('admin.users') }}" class="kpd-nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+                        <i class="bi bi-people-fill"></i> Pengguna
+                    </a>
+
+                    <a href="{{ route('kategori.index') }}" class="kpd-nav-link {{ request()->is('kategori*') ? 'active' : '' }}">
+                        <i class="bi bi-tags-fill"></i> Kategori
+                    </a>
+                @endif
 
                 <a href="{{ route('produk.index') }}" class="kpd-nav-link {{ request()->is('produk*') ? 'active' : '' }}">
                     <i class="bi bi-box-seam-fill"></i> Produk
                 </a>
 
                 <a href="{{ route('penjualan.index') }}" class="kpd-nav-link {{ request()->is('penjualan*') ? 'active' : '' }}">
-                    <i class="bi bi-cart-check-fill"></i> Kasir 
+                    <i class="bi bi-cart-check-fill"></i> Penjualan
                 </a>
-
-                @if(auth()->check() && auth()->user()->role_id == 1)
-                    <div class="kpd-nav-section">Administrasi</div>
-
-                    <a href="{{ route('kategori.index') }}" class="kpd-nav-link {{ request()->is('kategori*') ? 'active' : '' }}">
-                        <i class="bi bi-tags-fill"></i> Kategori
-                    </a>
-
-                    <a href="{{ route('admin.users') }}" class="kpd-nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
-                        <i class="bi bi-people-fill"></i> Pengguna
-                    </a>
-                @endif
             </nav>
 
             <div class="kpd-sidebar-foot">

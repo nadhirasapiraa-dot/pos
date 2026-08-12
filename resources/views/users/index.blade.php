@@ -33,14 +33,14 @@
 
     <div class="kpd-card-body text-center">
         <div class="table-responsive">
-            <table class="table kpd-table align-middle mb-0">
+            <table class="table kpd-table kpd-table-center align-middle mb-0">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th class="kpd-fit">#</th>
                         <th>Nama</th>
                         <th>Email</th>
-                        <th>Role</th>
-                        <th class="text-end">Aksi</th>
+                        <th class="kpd-fit">Role</th>
+                        <th class="text-end kpd-fit">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +62,7 @@
                             </span>
                         </td>
                         <td class="text-end">
-                            <div class="d-inline-flex gap-1">
+                            <div class="d-inline-flex align-items-center gap-1">
                                 <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-outline-kpd btn-sm">
                                     <i class="bi bi-pencil"></i> Edit
                                 </a>

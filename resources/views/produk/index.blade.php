@@ -44,15 +44,15 @@
             <table class="table kpd-table align-middle mb-0">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Foto</th>
+                        <th class="kpd-fit">#</th>
+                        <th class="kpd-fit">Foto</th>
                         <th>Nama</th>
                         <th>Kategori</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
-                        <th>Stok</th>
+                        <th class="kpd-fit">Stok</th>
                         <th>Dibuat Oleh</th>
-                        <th class="text-end">Aksi</th>
+                        <th class="text-end kpd-fit">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,7 +85,7 @@
                         </td>
                         <td class="text-muted small">{{ $product->user->name ?? '-' }}</td>
                         <td class="text-end">
-                            <div class="d-inline-flex gap-1">
+                            <div class="d-inline-flex align-items-center gap-1">
                                 <a href="{{ route('produk.show', $product) }}" class="btn btn-outline-secondary btn-sm" title="Detail">
                                     <i class="bi bi-eye"></i>
                                 </a>
