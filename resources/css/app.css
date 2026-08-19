@@ -241,9 +241,15 @@ body {
     border: 1px solid var(--kpd-border);
     border-radius: var(--kpd-radius);
     box-shadow: var(--kpd-shadow-sm);
+    transition: box-shadow .15s ease;
 }
 
-/* Dashboard table lebih rapat */
+/* Card dashboard (Stok Rendah / Stok Habis): tinggi mengikuti isi
+   masing-masing, jangan saling ketarik tinggi sama tetangganya */
+.dashboard-table.row {
+    align-items: start;
+}
+
 .dashboard-table .kpd-card-body {
     padding: .5rem 1rem;
 }
@@ -256,7 +262,6 @@ body {
     padding: 1rem;
 }
 
-/* Hilangkan tinggi kosong pada row */
 .dashboard-table tbody tr {
     height: auto;
 }
@@ -371,48 +376,66 @@ body {
     border-color: #ced4da;
 }
 
-.kpd-card {
-    transition: box-shadow .15s ease;
-}
+/* ==========================================================
+   TABEL — besar, ramah, rapat (nggak nganga) tapi tetap lega.
+   ========================================================== */
 
-.kpd-table thead {
-    background: #FBEFEF;
+.kpd-table {
+    font-size: 1rem;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 .kpd-table thead th {
     color: var(--kpd-red-dark);
-    font-size: .85rem;
+    font-size: .96rem;
     font-weight: 700;
-    border-bottom: none;
+    background: #FBEFEF;
+    border-bottom: 2px solid var(--kpd-red-light);
     white-space: nowrap;
-    padding-top: .8rem;
-    padding-bottom: .8rem;
+    padding: .7rem 1rem;
 }
+
+.kpd-table thead th:first-child { border-top-left-radius: 10px; }
+.kpd-table thead th:last-child  { border-top-right-radius: 10px; }
 
 .kpd-table td {
     vertical-align: middle;
-    font-size: .95rem;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    padding: .85rem 1rem;
+    color: var(--kpd-text);
 }
 
-/* Kolom sempit (id, ikon, badge status, tombol aksi) dikasih class
-   "kpd-fit" di blade supaya menyusut mengikuti isi — sisa ruang
-   diserap kolom konten utama (Nama, dst), jadi tabel pendek nggak
-   terlihat "meregang" dan berjarak jauh. */
+.kpd-table td:first-child {
+    color: var(--kpd-text-muted);
+    font-weight: 600;
+}
+
+.kpd-table tbody tr {
+    border-bottom: 1px solid var(--kpd-border);
+    transition: background .12s ease;
+}
+.kpd-table tbody tr:last-child { border-bottom: none; }
+.kpd-table tbody tr:hover { background: #FDF7F7; }
+
+.kpd-table .badge {
+    font-size: .92rem;
+    font-weight: 700;
+    padding: .38em .8em;
+    border-radius: 8px;
+}
+
 .kpd-table .kpd-fit {
     width: 1%;
     white-space: nowrap;
 }
 
-/* Kolom Aksi selalu kolom terakhir di semua tabel — dipaksa satu baris
-   supaya tombol Edit/Hapus tidak pernah patah baris dan jadi tidak sejajar. */
 .kpd-table th:last-child, .kpd-table td:last-child {
     width: 1%;
     white-space: nowrap;
 }
 
-/* Tabel dengan kolom sedikit (Pengguna, Kategori) dibuat tidak melar
-   penuh selebar card, biar tidak kelihatan renggang — tabelnya
-   menyusut ke isinya lalu di-center di dalam card. */
 .kpd-table-center {
     width: auto;
     max-width: 100%;
@@ -422,15 +445,6 @@ body {
 .kpd-table-center td, .kpd-table-center th {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-}
-
-.kpd-table tbody tr { transition: background .12s ease; }
-.kpd-table tbody tr:hover { background: #FDF7F7; }
-
-.kpd-table .badge {
-    font-size: .82rem;
-    font-weight: 600;
-    padding: .4em .7em;
 }
 
 .badge-kpd-open { background: #FFF3CD; color: #8A6100; }
@@ -503,10 +517,16 @@ body {
 
 .kpd-empty {
     text-align: center;
-    padding: 2.5rem 1rem;
+    padding: 1.75rem 1rem;
     color: var(--kpd-text-muted);
+    font-size: 1rem;
 }
-.kpd-empty i { font-size: 2.2rem; color: var(--kpd-border); display: block; margin-bottom: .5rem; }
+.kpd-empty i {
+    font-size: 1.8rem;
+    color: var(--kpd-border);
+    display: block;
+    margin-bottom: .5rem;
+}
 
 @media (max-width: 991.98px) {
     .kpd-sidebar { transform: translateX(-100%); }
