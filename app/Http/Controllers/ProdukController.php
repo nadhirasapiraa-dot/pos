@@ -56,7 +56,7 @@ class ProdukController extends Controller
 
         $data = [
             'user_id'     => Auth::id(),
-            'kategori_id' => $dataReq['category_id'] ?? $request->kategori_id,
+            'kategori_id' => $dataReq['kategori_id'] ?? $request->kategori_id,
             'nama'        => $dataReq['name'],
             'harga_beli'  => $dataReq['purchase_price'],
             'harga_jual'  => $dataReq['selling_price'],
