@@ -44,12 +44,12 @@ class StoreRequest extends FormRequest
             'kategori_id.exists'   => 'Kategori tidak ditemukan.',
             'name.required'          => 'Nama wajib diisi.',
             'email.email'            => 'Format email tidak valid.',
-            'purchase_price.required' => 'purchase price wajib diisi.',
-            'purchase_price.integer'  => 'purchase price harus diisi bilangan bulat.',
-            'selling_price.required'  => 'selling price wajib diisi.',
-            'selling_price.integer'   => 'selling price harus diisi bilangan bulat.',
-            'stock.required'          => 'Stock wajib diisi.',
-            'stock.integer'           => 'Stock harus diisi angka.',
+            'purchase_price.required' => 'Harga pembelian wajib diisi.',
+            'purchase_price.integer'  => 'Harga pembelian harus diisi bilangan bulat.',
+            'selling_price.required'  => 'Harga jual wajib diisi.',
+            'selling_price.integer'   => 'Harga jual harus diisi bilangan bulat.',
+            'stock.required'          => 'Stok wajib diisi.',
+            'stock.integer'           => 'Stok harus diisi angka.',
         ];
     }
 

@@ -69,7 +69,7 @@ class ProdukController extends Controller
 
         Produk::create($data);
 
-        return redirect()->route('produk.index')->with('success', 'Product created successfully.');
+        return redirect()->route('produk.index')->with('success', 'Produk telah dibuat.');
     }
 
     /**
@@ -129,7 +129,7 @@ class ProdukController extends Controller
 
         $produk->update($data);
 
-        return redirect()->route('produk.edit', $produk)->with('success', 'Product updated successfully.');
+        return redirect()->route('produk.edit', $produk)->with('success', 'Produk telah di update.');
     }
 
     /**
@@ -153,6 +153,6 @@ class ProdukController extends Controller
 
         $produk->delete();
 
-        return redirect()->route('produk.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('produk.index')->with('success', 'Produk telah di hapus');
     }
 }
