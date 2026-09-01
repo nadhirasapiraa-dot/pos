@@ -55,7 +55,9 @@
                             <button class="btn btn-outline-primary w-100 text-start p-2 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}" style="border-color:#E7DFDC;">
                                 <div class="d-flex align-items-center gap-2">
                                     <div class="rounded-2 bg-light d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
-                                        <i class="bi bi-box-seam text-danger"></i>
+                                        <img src="{{ asset('storage/' . $product->foto) }}"
+                                        alt="{{ $product->nama }}"
+                                        style="width:100%;height:100%;object-fit:cover;">
                                     </div>
                                     <div>
                                         <div class="fw-semibold small">{{ $product->nama }}</div>
