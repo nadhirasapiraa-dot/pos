@@ -7,15 +7,29 @@ use App\Models\User;
 
 class PenjualanPolicy
 {
-    public function delete(User $user, Penjualan$penjualan): bool
+    /**
+     * Menentukan apakah user bisa mengedit data penjualan.
+     */
+    public function update(User $user, Penjualan $penjualan): bool
     {
-        return $user->role->name === 'admin'
+        return in_array($user->role->name, ['admin', 'kasir'], true)
             && $penjualan->status === 'OPEN';
     }
 
-    public function view(User $user, Penjualan$penjualan): bool
+    /**
+     * Menentukan apakah user bisa menghapus data penjualan.
+     */
+    public function delete(User $user, Penjualan $penjualan): bool
     {
-        return $user->role->name === 'admin'
+        return in_array($user->role->name, ['admin', 'kasir'], true)
             && $penjualan->status === 'OPEN';
+    }
+
+    /**
+     * Menentukan apakah user bisa melihat detail penjualan.
+     */
+    public function view(User $user, Penjualan $penjualan): bool
+    {
+        return in_array($user->role->name, ['admin', 'kasir'], true);
     }
 }

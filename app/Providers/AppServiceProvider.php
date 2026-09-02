@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Policies\DashboardPolicy;
 use App\Models\Penjualan;
 use App\Models\Produk;
-use App\Models\itemPenjualan;
+use App\Models\ItemPenjualan;
 use App\Policies\ItemPenjualanPolicy;
 use App\Policies\PenjualanPolicy;
 use App\Policies\ProdukPolicy;

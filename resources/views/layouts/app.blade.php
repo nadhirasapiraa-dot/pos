@@ -119,8 +119,41 @@
             kpdSidebar.classList.remove('show');
             kpdBackdrop.classList.remove('show');
         });
+    }<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const kpdToggle = document.getElementById('kpdSidebarToggle');
+    const kpdSidebar = document.getElementById('kpdSidebar');
+    const kpdBackdrop = document.getElementById('kpdSidebarBackdrop');
+    if (kpdToggle) {
+        kpdToggle.addEventListener('click', () => {
+            kpdSidebar.classList.toggle('show');
+            kpdBackdrop.classList.toggle('show');
+        });
+        kpdBackdrop?.addEventListener('click', () => {
+            kpdSidebar.classList.remove('show');
+            kpdBackdrop.classList.remove('show');
+        });
     }
+
+    // Refresh CSRF token setiap 10 menit (600.000 milidetik)
+    setInterval(function() {
+        fetch('/csrf-token')
+            .then(response => response.json())
+            .then(data => {
+                // Perbarui semua input _token (termasuk form logout)
+                document.querySelectorAll('input[name="_token"]').forEach(input => {
+                    input.value = data.token;
+                });
+                // Perbarui meta tag csrf-token
+                document.querySelectorAll('meta[name="csrf-token"]').forEach(meta => {
+                    meta.setAttribute('content', data.token);
+                });
+            })
+            .catch(err => console.error('Gagal memperbarui CSRF token:', err));
+    }, 600000);
 </script>
+
 @stack('scripts')
 </body>
 </html>

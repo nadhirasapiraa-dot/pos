@@ -49,4 +49,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('/itempenjualan', ItemPenjualanController::class); 
     });
 
+    Route::get('/csrf-token', function () {
+    return response()->json(['token' => csrf_token()]);
+});
+
 });

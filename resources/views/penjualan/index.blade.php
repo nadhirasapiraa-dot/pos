@@ -72,12 +72,12 @@
                                 <a href="{{ route('penjualan.show', $sale->id) }}" class="btn btn-outline-secondary btn-sm">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                @can('view', $sale)
+                                @if($sale->status === 'OPEN')
                                     <a href="{{ route('penjualan.edit', $sale) }}" class="btn btn-outline-kpd btn-sm">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                 @endcan
-                                @can('delete', $sale)
+                               @if($sale->status === 'OPEN')
                                     <form action="{{ route('penjualan.destroy', $sale) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
