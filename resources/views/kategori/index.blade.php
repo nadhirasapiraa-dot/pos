@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Jenis / Kategori')
+@section('title', 'Kategori')
 
 @section('content')
 
@@ -13,7 +13,7 @@
 
 <div class="kpd-page-header">
     <div>
-        <h3>Jenis / Kategori Item</h3>
+        <h3>Kategori Item</h3>
         <p><i class="bi bi-tags me-1"></i>Kelola pengelompokan produk</p>
     </div>
     <a href="{{ route('kategori.create') }}" class="btn btn-kpd-primary">

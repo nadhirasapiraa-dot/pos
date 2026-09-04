@@ -112,10 +112,8 @@ class ProdukController extends Controller
             'stok'       => $dataReq['stock'],
         ];
 
-        // Jika upload foto baru
+    
         if ($request->hasFile('foto')) {
-
-            // Hapus foto lama (jika ada & memang tersimpan)
             if (
                 $produk->foto &&
                 Storage::disk('public')->exists($produk->foto)
@@ -123,13 +121,12 @@ class ProdukController extends Controller
                 Storage::disk('public')->delete($produk->foto);
             }
 
-            // Simpan foto baru
             $data['foto'] = $request->file('foto')->store('products', 'public');
         }
 
         $produk->update($data);
 
-        return redirect()->route('produk.edit', $produk)->with('success', 'Produk telah di update.');
+        return redirect()->route('produk.index', $produk)->with('success', 'Produk telah di update.');
     }
 
     /**

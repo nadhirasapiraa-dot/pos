@@ -26,6 +26,7 @@ class AuthController extends Controller
         'email' => 'Email atau password tidak valid.',
     ])->withInput();
     }
+    
     public function logout (Request $request)
     {
         Auth::logout();
