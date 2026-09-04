@@ -101,10 +101,20 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::findOrFail($id);
+         $user = User::findOrFail($id);
 
-        $user->delete();
+    // Cek apakah user masih digunakan di tabel penjualan
+    if ($user->penjualan()->exists()) {
+        return redirect()
+            ->route('admin.users')
+            ->with('error', 'User tidak dapat dihapus karena masih digunakan pada data penjualan.');
+    }
 
-        return back()->with('success', 'User berhasil dihapus');
+    $user->delete();
+
+    return redirect()
+        ->route('admin.users')
+        ->with('success', 'User berhasil dihapus.');
+
     }
 }
