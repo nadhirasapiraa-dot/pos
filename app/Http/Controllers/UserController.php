@@ -99,15 +99,23 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-         $user = User::findOrFail($id);
 
-    // Cek apakah user masih digunakan di tabel penjualan
+    public function destroy(string $id)
+{
+    $user = User::findOrFail($id);
+
+    // User tidak boleh menghapus akun yang sedang digunakan
+    if (auth()->id() == $user->id) {
+        return redirect()
+            ->route('admin.users')
+            ->with('error', 'User yang sedang login tidak dapat dihapus.');
+    }
+
+    // User yang masih memiliki data penjualan tidak boleh dihapus
     if ($user->penjualan()->exists()) {
         return redirect()
             ->route('admin.users')
-            ->with('error', 'User tidak dapat dihapus karena masih digunakan pada data penjualan.');
+            ->with('error', 'User tidak dapat dihapus karena masih memiliki data penjualan.');
     }
 
     $user->delete();
@@ -115,6 +123,4 @@ class UserController extends Controller
     return redirect()
         ->route('admin.users')
         ->with('success', 'User berhasil dihapus.');
-
-    }
-}
+} }
