@@ -22,6 +22,7 @@
 </div>
 
 <div class="row g-3">
+    <!-- Kolom Kiri: Daftar Produk -->
     <div class="col-lg-6">
         <div class="kpd-card h-100">
             <div class="kpd-card-header">
@@ -56,8 +57,8 @@
                                 <div class="d-flex align-items-center gap-2">
                                     <div class="rounded-2 bg-light d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
                                         <img src="{{ asset('storage/' . $product->foto) }}"
-                                        alt="{{ $product->nama }}"
-                                        style="width:100%;height:100%;object-fit:cover;">
+                                             alt="{{ $product->nama }}"
+                                             style="width:100%;height:100%;object-fit:cover;">
                                     </div>
                                     <div>
                                         <div class="fw-semibold small">{{ $product->nama }}</div>
@@ -92,6 +93,7 @@
         </div>
     </div>
 
+    <!-- Kolom Kanan: Keranjang & Checkout -->
     <div class="col-lg-6">
         <div class="kpd-card h-100 d-flex flex-column">
             <div class="kpd-card-header">
@@ -150,19 +152,43 @@
             <div class="kpd-card-body mt-auto border-top">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted fw-semibold">Total Pembayaran</span>
-                    <span class="fs-4 fw-800 text-danger fw-bold">Rp {{ number_format($sale->total_pembayaran) }}</span>
+                    <span class="fs-4 fw-800 text-danger fw-bold">Rp {{ number_format($sale->ItemPenjualan->sum('subtotal')) }}</span>
                 </div>
 
                 <form method="POST"
                       action="{{ route('penjualan.update', $sale->id) }}"
                       onsubmit="return confirm('Yakin ingin di checkout?')">
                     @csrf
-                    @METHOD('PUT')
-                    <select name="payment_method" class="form-select mb-2">
-                        <option value="">Pilih Pembayaran</option>
-                        <option value="CASH">Cash</option>
-                        <option value="QRIS">QRIS</option>
-                    </select>
+                    @method('PUT')
+                    
+                    <!-- Choice Pembayaran -->
+                    <div class="mb-2">
+                        <select name="payment_method" id="payment_method" class="form-select" onchange="handlePaymentChange()" required>
+                            <option value="">Pilih Pembayaran</option>
+                            <option value="CASH">Cash (Tunai)</option>
+                            <option value="QRIS">QRIS</option>
+                        </select>
+                    </div>
+
+                    <!-- Section Uang Tunai & Kembalian (Muncul jika CASH) -->
+                    <div id="cash_section" class="border rounded p-2 mb-2 bg-light" style="display: none;">
+                        <div class="mb-2">
+                            <label class="form-label small fw-semibold mb-1">Uang Tunai (Bayar)</label>
+                            <input type="number" name="bayar" id="bayar_input" class="form-control form-control-sm" placeholder="Masukkan jumlah uang" oninput="calculateChange()">
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="small text-muted">Kembalian:</span>
+                            <span id="kembalian_text" class="fw-bold text-success">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <!-- Section QRIS (Muncul jika QRIS) -->
+                    <div id="qris_section" class="text-center border rounded p-2 mb-2 bg-light" style="display: none;">
+                        <span class="small fw-semibold d-block mb-1">Scan QRIS Pembayaran:</span>
+                        <!-- Ganti asset gambar qris sesuai file kamu -->
+                        <img src="{{ asset('images/qris.png') }}" alt="QRIS Code" class="img-fluid border rounded p-1 style-qris" style="max-width: 150px;">
+                        <small class="text-muted d-block mt-1">Pastikan pembayaran berhasil sebelum checkout</small>
+                    </div>
 
                     <button class="btn btn-kpd-primary w-100 py-2 fw-semibold {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">
                         <i class="bi bi-check-circle me-1"></i> Checkout
@@ -183,7 +209,46 @@
             </div>
         </div>
     </div>
-
 </div>
+
+<!-- JavaScript Logic untuk Kasir -->
+<script>
+    const grandTotal = {{ $sale->ItemPenjualan->sum('subtotal') }};
+
+    function handlePaymentChange() {
+        const method = document.getElementById('payment_method').value;
+        const cashSection = document.getElementById('cash_section');
+        const qrisSection = document.getElementById('qris_section');
+        const bayarInput = document.getElementById('bayar_input');
+
+        if (method === 'CASH') {
+            cashSection.style.display = 'block';
+            qrisSection.style.display = 'none';
+            bayarInput.required = true;
+        } else if (method === 'QRIS') {
+            cashSection.style.display = 'none';
+            qrisSection.style.display = 'block';
+            bayarInput.required = false;
+        } else {
+            cashSection.style.display = 'none';
+            qrisSection.style.display = 'none';
+            bayarInput.required = false;
+        }
+    }
+
+    function calculateChange() {
+        const bayar = parseFloat(document.getElementById('bayar_input').value) || 0;
+        const kembalian = bayar - grandTotal;
+        const kembalianText = document.getElementById('kembalian_text');
+
+        if (kembalian >= 0) {
+            kembalianText.className = 'fw-bold text-success';
+            kembalianText.innerText = 'Rp ' + kembalian.toLocaleString('id-ID');
+        } else {
+            kembalianText.className = 'fw-bold text-danger';
+            kembalianText.innerText = 'Kurang Rp ' + Math.abs(kembalian).toLocaleString('id-ID');
+        }
+    }
+</script>
 
 @endsection

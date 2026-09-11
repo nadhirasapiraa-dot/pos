@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/produk', ProdukController::class);
         Route::resource('/penjualan', PenjualanController::class);
         Route::resource('/itempenjualan', ItemPenjualanController::class); 
+        Route::get('/penjualan/{penjualan}/cetak', [PenjualanController::class, 'cetakStruk'])->name('penjualan.cetak');
     });
 
     Route::get('/csrf-token', function () {

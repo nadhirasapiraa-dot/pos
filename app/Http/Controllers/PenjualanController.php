@@ -129,42 +129,50 @@ class PenjualanController extends Controller
      */
     public function update(Request $request, Penjualan $penjualan)
     {
+        if (Auth::user()->role->name === 'kasir' && $penjualan->user_id !== Auth::id()) {
+            abort(403);
+        }
 
-    if (
-        Auth::user()->role->name === 'kasir'
-        && $penjualan->user_id !== Auth::id()
-    ) {
-        abort(403);
-    }
+        if ($penjualan->status !== 'OPEN') {
+            return back()->with('errors', 'Transaksi sudah diproses');
+        }
 
-    $request->validate([
-        'payment_method' => 'required|in:CASH,QRIS'
-    ]);
+        if ($penjualan->itemPenjualan()->count() === 0) {
+            return back()->with('errors', 'Keranjang masih kosong');
+        }
 
-    if ($penjualan->status !== 'OPEN') {
-        return back()->with('errors', 'Transaksi sudah diproses');
-    }
-
-    if ($penjualan->itemPenjualan()->count() === 0) {
-        return back()->with('errors', 'Keranjang masih kosong');
-    }
-
-    DB::transaction(function () use ($penjualan, $request) {
-
-        // 🔄 Hitung ulang total (anti manipulasi)
-        $total = $penjualan->itemPenjualan()->sum('subtotal');
-
-        $penjualan->update([
-            'metode_pembayaran' => $request->payment_method,
-            'total_pembayaran' => $total,
-            'status'            => 'COMPLETED'
+        // 1. Validasi Input
+        $request->validate([
+            'payment_method' => 'required|in:CASH,QRIS',
+            'bayar'          => 'required_if:payment_method,CASH|nullable|numeric|min:0',
         ]);
-    });
 
-    return redirect()
-        ->route('penjualan.index')
-        ->with('success', 'Transaksi berhasil diselesaikan');
-}
+        $total = $penjualan->itemPenjualan()->sum('subtotal');
+        $bayar = $request->payment_method === 'CASH' ? $request->bayar : $total;
+
+        // Validasi jika uang tunai kurang dari total pembayaran
+        if ($request->payment_method === 'CASH' && $bayar < $total) {
+            return back()->with('errors', 'Uang pembayaran kurang dari total tagihan!');
+        }
+
+        $kembalian = $bayar - $total;
+
+        // 2. Simpan Transaksi
+        DB::transaction(function () use ($penjualan, $request, $total, $bayar, $kembalian) {
+            $penjualan->update([
+                'metode_pembayaran' => $request->payment_method,
+                'total_pembayaran'  => $total,
+                'bayar'             => $bayar,
+                'kembalian'         => $kembalian,
+                'status'            => 'COMPLETED'
+            ]);
+        });
+
+        // 3. Redirect langsung ke Halaman Struk dengan pesan sukses
+        return redirect()
+            ->route('penjualan.cetak', $penjualan->id)
+            ->with('success', 'Transaksi berhasil diselesaikan');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -196,4 +204,21 @@ class PenjualanController extends Controller
         ->route('penjualan.index')
         ->with('success', 'Transaksi berhasil dibatalkan');
 }
+
+public function cetakStruk(Request $request, Penjualan $penjualan)
+{
+    if (Auth::user()->role->name === 'kasir' && $penjualan->user_id !== Auth::id()) {
+        abort(403);
+    }
+
+    $penjualan->load(['itemPenjualan.produk', 'user']);
+
+    // Ambil data bayar & kembalian dari parameter URL, beri default jika diakses langsung
+    $bayar = $request->query('bayar', $penjualan->total_pembayaran);
+    $kembalian = $request->query('kembalian', 0);
+
+    return view('penjualan.struk', compact('penjualan', 'bayar', 'kembalian'));
+}
+        
+
 }
