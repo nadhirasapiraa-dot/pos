@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\SearchRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -105,7 +106,7 @@ class UserController extends Controller
     $user = User::findOrFail($id);
 
     // User tidak boleh menghapus akun yang sedang digunakan
-    if (auth()->id() == $user->id) {
+       if (Auth::id() == $user->id) {
         return redirect()
             ->route('admin.users')
             ->with('error', 'User yang sedang login tidak dapat dihapus.');
@@ -123,4 +124,5 @@ class UserController extends Controller
     return redirect()
         ->route('admin.users')
         ->with('success', 'User berhasil dihapus.');
-} }
+} 
+}

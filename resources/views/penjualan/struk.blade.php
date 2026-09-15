@@ -50,25 +50,27 @@
 
     <div class="line"></div>
 
-    <table>
+  <table>
         <tr>
             <td><strong>Total:</strong></td>
             <td style="text-align: right;"><strong>Rp {{ number_format($penjualan->total_pembayaran, 0, ',', '.') }}</strong></td>
         </tr>
         <tr>
-<td>Metode:</td>
-        <td style="text-align: right;">{{ $penjualan->metode_pembayaran }}</td>
-    </tr>
-    <tr>
-        <td>Bayar:</td>
-        <td style="text-align: right;">Rp {{ number_format($bayar ?? $penjualan->total_pembayaran, 0, ',', '.') }}</td>
-    </tr>
-    <tr>
-        <td>Kembali:</td>
-        <td style="text-align: right;">Rp {{ number_format($kembalian ?? 0, 0, ',', '.') }}</td>
-    </tr>
-</table>
-
+            <td>Metode:</td>
+            <td style="text-align: right;">{{ $penjualan->metode_pembayaran }}</td>
+        </tr>
+        <tr>
+            <td>Bayar:</td>
+            <td style="text-align: right;">Rp {{ number_format($bayar ?? $penjualan->total_pembayaran, 0, ',', '.') }}</td>
+        </tr>
+        <tr>
+            <td>Kembali:</td>
+            <td style="text-align: right;">
+                Rp {{ number_format(($bayar ?? $penjualan->total_pembayaran) - $penjualan->total_pembayaran, 0, ',', '.') }}
+            </td>
+        </tr>
+    </table>
+    
     <div class="line"></div>
 
     <div class="text-center">

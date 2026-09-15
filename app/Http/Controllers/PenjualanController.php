@@ -169,9 +169,13 @@ class PenjualanController extends Controller
         });
 
         // 3. Redirect langsung ke Halaman Struk dengan pesan sukses
-        return redirect()
-            ->route('penjualan.cetak', $penjualan->id)
-            ->with('success', 'Transaksi berhasil diselesaikan');
+      return redirect()
+    ->route('penjualan.cetak', [
+        'penjualan' => $penjualan->id,
+        'bayar'     => $bayar,
+        'kembalian' => $kembalian,
+    ])
+    ->with('success', 'Transaksi berhasil diselesaikan');
     }
 
     /**
