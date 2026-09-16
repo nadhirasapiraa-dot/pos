@@ -105,7 +105,7 @@
                     <thead>
                         <tr>
                             <th>Produk</th>
-                            <th>Harga</th>
+                            <th>Harga Grosir</th>
                             <th style="width:90px;">Qty</th>
                             <th>Subtotal</th>
                             <th></th>

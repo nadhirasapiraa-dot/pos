@@ -9,7 +9,7 @@
 
         <div class="kpd-auth-header">
             <div class="kpd-auth-emblem"><i class="bi bi-shop"></i></div>
-            <h4>Koperasi Desa Merah Putih</h4>
+            <h4>Toko Grosir</h4>
             <p>Sistem Kasir &amp; Manajemen Toko</p>
         </div>
 
@@ -62,7 +62,7 @@
             </form>
 
             <p class="text-center text-muted small mt-4 mb-0">
-                &copy; {{ date('Y') }} Koperasi Desa Merah Putih.
+                &copy; {{ date('Y') }} Toko Grosir.
             </p>
         </div>
     </div>

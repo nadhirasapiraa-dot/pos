@@ -47,7 +47,7 @@
                         <div class="fw-bold fs-5 text-danger">Rp {{ number_format($produk->harga_jual) }}</div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="text-muted small">Stok Tersedia</div>
+                        <div class="text-muted small">Stok Perdus</div>
                         <div class="fw-bold fs-5">{{ $produk->stok }}</div>
                     </div>
                     <div class="col-sm-6">

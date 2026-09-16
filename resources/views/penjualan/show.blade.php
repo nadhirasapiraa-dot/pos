@@ -62,7 +62,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama Produk</th>
-                                <th>Harga Satuan</th>
+                                <th>Harga Satu Paket</th>
                                 <th class="text-center">Qty</th>
                                 <th class="text-end">Subtotal</th>
                             </tr>

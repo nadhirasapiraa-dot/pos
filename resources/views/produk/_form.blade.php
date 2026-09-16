@@ -84,7 +84,7 @@
             </div>
 
             <div class="col-sm-4 mb-3">
-                <label class="form-label small fw-semibold">Stok</label>
+                <label class="form-label small fw-semibold">Stok Perdus</label>
                 <input type="number" name="stock"
                        class="form-control @error('stock') is-invalid @enderror"
                        value="{{ old('stock', $produk->stok ?? '') }}">

@@ -50,7 +50,7 @@
                         <th>Kategori</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
-                        <th class="kpd-fit">Stok</th>
+                        <th class="kpd-fit">Stok Perdus</th>
                         <th>Dibuat Oleh</th>
                         <th class="text-end kpd-fit">Aksi</th>
                     </tr>
