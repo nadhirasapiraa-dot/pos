@@ -696,3 +696,23 @@ p.text-muted.small {
     object-fit: cover;
     display: block;
 }
+/* Styling Kotak Kembalian Pas dengan Tema KPD */
+#kembalian_text {
+    display: inline-block;
+    padding: 0.25rem 0.55rem;
+    background-color: #dff3e7;
+    border: 1px solid var(--kpd-green);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--kpd-green) !important;
+    line-height: 1.2;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Tampilan saat uang tunai masih kurang */
+#kembalian_text.text-danger {
+    background-color: #fbefef;
+    border-color: var(--kpd-red-light);
+    color: var(--kpd-red) !important;
+}

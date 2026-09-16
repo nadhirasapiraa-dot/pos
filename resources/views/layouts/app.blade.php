@@ -19,14 +19,15 @@
 
         <div class="kpd-sidebar-backdrop" id="kpdSidebarBackdrop"></div>
 
-        <aside class="kpd-sidebar" id="kpdSidebar">
-            <div class="kpd-brand">
-                <div class="kpd-brand-emblem"><i class="bi bi-shop"></i></div>
-                <div class="kpd-brand-text">
-                    <div class="kpd-brand-title">Toko Grosir</div>
-                    <div class="kpd-brand-sub">Sistem Kasir</div>
-                </div>
+<aside class="kpd-sidebar" id="kpdSidebar">
+        <!-- Brand Link Ditambahkan Langsung Sebagai Tag <a> -->
+        <a href="{{ route('tentang') }}" class="kpd-brand text-decoration-none text-reset" style="color: inherit;">
+            <div class="kpd-brand-emblem"><i class="bi bi-shop"></i></div>
+            <div class="kpd-brand-text">
+                <div class="kpd-brand-title">Toko Grosir</div>
+                <div class="kpd-brand-sub">Sistem Transaksi</div>
             </div>
+        </a>
 
             <nav class="kpd-nav">
                 <a href="{{ route('dashboard') }}" class="kpd-nav-link {{ request()->is('dashboard') ? 'active' : '' }}">

@@ -176,20 +176,20 @@
                             <label class="form-label small fw-semibold mb-1">Uang Tunai (Bayar)</label>
                             <input type="number" name="bayar" id="bayar_input" class="form-control form-control-sm" placeholder="Masukkan jumlah uang" oninput="calculateChange()">
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="small text-muted">Kembalian:</span>
-                            <span id="kembalian_text" class="fw-bold text-success">Rp 0</span>
+                        <div class="d-flex justify-content-between align-items-center mt-2 pt-2 border-top">
+                            <span class="small fw-semibold text-muted">Transaksi:</span>
+                            <span id="kembalian_text" class="text-success">Rp 0</span>
                         </div>
                     </div>
 
                     <!-- Section QRIS (Muncul jika QRIS) -->
                     <div id="qris_section" class="text-center border rounded p-2 mb-2 bg-light" style="display: none;">
                         <span class="small fw-semibold d-block mb-1">Scan QRIS Pembayaran:</span>
-                        <!-- Ganti asset gambar qris sesuai file kamu -->
-                        <img src="{{ asset('images/qris.png') }}" alt="QRIS Code" class="img-fluid border rounded p-1 style-qris" style="max-width: 150px;">
+                        <img src="{{ asset('image/download.png') }}" alt="QRIS Code" class="img-fluid border rounded p-1 style-qris" style="max-width: 150px;">
                         <small class="text-muted d-block mt-1">Pastikan pembayaran berhasil sebelum checkout</small>
                     </div>
 
+                    <!-- Tombol Checkout (Berada di Luar Section Cash/QRIS agar tetap muncul) -->
                     <button class="btn btn-kpd-primary w-100 py-2 fw-semibold {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">
                         <i class="bi bi-check-circle me-1"></i> Checkout
                     </button>
@@ -242,11 +242,11 @@
         const kembalianText = document.getElementById('kembalian_text');
 
         if (kembalian >= 0) {
-            kembalianText.className = 'fw-bold text-success';
-            kembalianText.innerText = 'Rp ' + kembalian.toLocaleString('id-ID');
+            kembalianText.className = 'text-success';
+            kembalianText.innerText = 'Kembalian: Rp ' + kembalian.toLocaleString('id-ID');
         } else {
-            kembalianText.className = 'fw-bold text-danger';
-            kembalianText.innerText = 'Kurang Rp ' + Math.abs(kembalian).toLocaleString('id-ID');
+            kembalianText.className = 'text-danger';
+            kembalianText.innerText = 'Kurang: Rp ' + Math.abs(kembalian).toLocaleString('id-ID');
         }
     }
 </script>

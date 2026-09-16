@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
             'name' => 'required|string|max:255',
             'kategori_id' => 'required|exists:kategoris,id',
             'purchase_price' => 'required|integer|min:0',
-            'selling_price' => 'required|integer|min:0',
+            'selling_price' => 'required|integer|min:0|gte:purchase_price',
             'stock' => 'required|integer|min:0',
         ];
     }

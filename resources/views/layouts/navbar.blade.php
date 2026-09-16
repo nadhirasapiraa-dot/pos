@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">POS</a>
+    
+    <a class="navbar-brand" href="{{ route('tentang') }}">POS</a> 
 
     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
       <ul class="navbar-nav mb-0">
